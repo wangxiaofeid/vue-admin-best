@@ -1,12 +1,17 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Layout from '@/layout'
+import EmptyComponent from "@/components/EmptyComponent";
 
 Vue.use(Router)
 
-const EmptyComponent = Vue.component('EmptyComponent', {
-  template: '<router-view></router-view>'
-})
+const req = require.context('../pages', true, /router$/);
+const routerList = [];
+req.keys().map(key => {
+  console.log(key);
+  const router = req(key).default;
+  routerList.push(router);
+});
 
 export default new Router({
   routes: [
@@ -17,27 +22,14 @@ export default new Router({
       children: [{
         path: 'home',
         meta: { title: '首页' },
-        component: () => import(/* webpackChunkName: "home" */ '@/views/home')
-      }, {
-        path: 'user',
-        meta: { title: '用户管理', url: '/user/list' },
-        component: EmptyComponent,
-        children: [{
-          path: 'list',
-          meta: { title: '用户列表' },
-          component: () => import(/* webpackChunkName: "user" */ '@/views/user')
-        }, {
-          path: 'detail/:id',
-          meta: { title: '用户详情' },
-          component: () => import(/* webpackChunkName: "userDetail" */ '@/views/user/detail')
-        }]
-      }]
+        component: () => import(/* webpackChunkName: "home" */ '@/commonPages/home')
+      }, ...routerList]
     }, {
       path: '/login',
-      component: () => import(/* webpackChunkName: "login" */ '@/views/login')
+      component: () => import(/* webpackChunkName: "login" */ '@/commonPages/login')
     }, {
       path: '*',
-      component: () => import(/* webpackChunkName: "notFound" */ '@/views/notFound')
+      component: () => import(/* webpackChunkName: "notFound" */ '@/commonPages/notFound')
     }
   ]
 })

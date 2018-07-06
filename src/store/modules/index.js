@@ -1,7 +1,14 @@
-const req = require.context('.', true, /Store$/);
+const thisStore = require.context('.', true, /Store$/);
 const modules = {};
-req.keys().map(key => {
-  const Store = req(key).default;
+thisStore.keys().map(key => {
+  const Store = thisStore(key).default;
+  modules[Store.name] = Store;
+});
+
+const pageStore = require.context('../../pages', true, /store$/);
+
+pageStore.keys().map(key => {
+  const Store = pageStore(key).default;
   modules[Store.name] = Store;
 });
 

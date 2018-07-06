@@ -18,7 +18,7 @@
 <script>
 import { mapGetters } from "vuex";
 import editMixin from "@/mixins/editMixin";
-const pageName = "userList";
+const pageName = "user";
 
 export default {
   mixins: [editMixin],

@@ -46,7 +46,7 @@ import { mapGetters } from "vuex";
 import listMixin from "@/mixins/listMixin";
 import Edit from "./edit";
 
-const pageName = 'userList';
+const pageName = 'user';
 export default {
   mixins: [listMixin],
 
@@ -65,7 +65,7 @@ export default {
     ...mapGetters({
       tableData: `${pageName}/tableData`
     })
-  },
+  }
 };
 </script>
 
