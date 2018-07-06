@@ -1,29 +1,43 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Layout from '@/components/layout'
+import Layout from '@/layout'
 
 Vue.use(Router)
+
+const EmptyComponent = Vue.component('EmptyComponent', {
+  template: '<router-view></router-view>'
+})
 
 export default new Router({
   routes: [
     {
       path: '/',
-      name: 'Layout',
       component: Layout,
       redirect: '/home',
       children: [{
-        path: '/home',
-        name: 'home',
-        component: () => import('@/views/home') /* webpackChunkName: "home" */
+        path: 'home',
+        meta: { title: '首页' },
+        component: () => import(/* webpackChunkName: "home" */ '@/views/home')
       }, {
-        path: '/user',
-        name: 'user',
-        component: () => import('@/views/user') /* webpackChunkName: "user" */
+        path: 'user',
+        meta: { title: '用户管理', url: '/user/list' },
+        component: EmptyComponent,
+        children: [{
+          path: 'list',
+          meta: { title: '用户列表' },
+          component: () => import(/* webpackChunkName: "user" */ '@/views/user')
+        }, {
+          path: 'detail/:id',
+          meta: { title: '用户详情' },
+          component: () => import(/* webpackChunkName: "userDetail" */ '@/views/user/detail')
+        }]
       }]
     }, {
       path: '/login',
-      name: 'login',
-      component: () => import('@/views/login') /* webpackChunkName: "login" */
+      component: () => import(/* webpackChunkName: "login" */ '@/views/login')
+    }, {
+      path: '*',
+      component: () => import(/* webpackChunkName: "notFound" */ '@/views/notFound')
     }
   ]
 })
