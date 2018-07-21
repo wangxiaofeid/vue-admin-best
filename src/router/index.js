@@ -8,7 +8,6 @@ Vue.use(Router)
 const req = require.context('../pages', true, /router$/);
 const routerList = [];
 req.keys().map(key => {
-  console.log(key);
   const router = req(key).default;
   routerList.push(router);
 });

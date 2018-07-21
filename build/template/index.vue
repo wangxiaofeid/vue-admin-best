@@ -45,8 +45,8 @@
 import { mapGetters } from "vuex";
 import listMixin from "@/mixins/listMixin";
 import Edit from "./edit";
+const pageName = "__pageName__";
 
-const pageName = 'user';
 export default {
   mixins: [listMixin],
 
