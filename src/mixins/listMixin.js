@@ -11,12 +11,6 @@ export default {
     }
   },
 
-  // computed: {
-  //   ...mapGetters({
-  //     tableData: `${this.pageName}/tableData`
-  //   })
-  // },
-
   created() {
     this.$store.dispatch(`${this.pageName}/search`, {
       defaultSearchForm: this.defaultSearchForm || {},
