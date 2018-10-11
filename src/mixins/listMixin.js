@@ -25,8 +25,7 @@ export default {
       this.$store.dispatch(`${this.pageName}/search`, {
         searchForm: this.searchForm,
         currentPage: 1,
-        pageSize: 10,
-        check: true
+        pageSize: 10
       });
     },
     currentChange(currentPage) {

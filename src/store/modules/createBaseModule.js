@@ -4,14 +4,7 @@ import {
 import _ from "lodash";
 import Ajax from '@/ajax';
 
-export default function createBaseModule({
-  searchUrl,
-  deleteUrl,
-  addUrl,
-  editUrl,
-  defaultSearch,
-  rowKey = 'id'
-}) {
+export default function createBaseModule({ searchUrl, deleteUrl, addUrl, editUrl, defaultSearch, rowKey = 'id' }) {
   const state = {
     pageSize: 10,
     currentPage: 1,
@@ -29,12 +22,7 @@ export default function createBaseModule({
 
   const getters = {
     tableData: state => {
-      const {
-        dataList,
-        currentPage,
-        pageSize,
-        total
-      } = state;
+      const { dataList, currentPage, pageSize, total } = state;
       return {
         dataList,
         currentPage,
@@ -43,11 +31,7 @@ export default function createBaseModule({
       }
     },
     editData: state => {
-      const {
-        editRow,
-        editType,
-        editVisable
-      } = state;
+      const { editRow, editType, editVisable } = state;
       return {
         editRow,
         editType,
@@ -58,25 +42,11 @@ export default function createBaseModule({
   }
 
   const actions = {
-    search({
-      commit,
-      state,
-      rootState
-    }, obj) {
+    search({ commit, state, rootState }, obj) {
       if (rootState.loading) {
         return
       }
-      const {
-        searchForm = {}, currentPage, pageSize, check = false, defaultSearchForm
-      } = obj;
-      if (check && obj.currentPage != state.currentPage) {
-        commit('changeData', {
-          searchForm,
-          pageSize,
-          currentPage
-        });
-        return
-      }
+      const { searchForm = {}, currentPage, pageSize, defaultSearchForm } = obj;
       if (defaultSearchForm) {
         state.defaultSearchForm = defaultSearchForm;
       }
@@ -109,11 +79,7 @@ export default function createBaseModule({
       });
     },
 
-    delete({
-      commit,
-      state,
-      rootState
-    }, id) {
+    delete({ commit, state, rootState }, id) {
       commit('setLoading', true, {
         root: true
       });
@@ -136,11 +102,7 @@ export default function createBaseModule({
       });
     },
 
-    save({
-      commit,
-      state,
-      dispatch
-    }, options) {
+    save({ commit, state, dispatch }, options) {
       commit('changeData', {
         isSave: true
       });
@@ -177,10 +139,7 @@ export default function createBaseModule({
       });
     },
 
-    edit({
-      commit,
-      state
-    }, options) {
+    edit({ commit, state }, options) {
       const {
         editType,
         editRow
@@ -199,9 +158,7 @@ export default function createBaseModule({
       }
     },
 
-    cancelEdit({
-      commit
-    }) {
+    cancelEdit({ commit }) {
       commit('changeData', {
         editType: '',
         editRow: {},

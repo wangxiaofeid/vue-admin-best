@@ -32,7 +32,7 @@
       </el-table>
       <div class="clearfix pt15">
         <div class="fr">
-          <el-pagination background layout="total, prev, pager, next" :total="tableData.total" :page-size="10" :current-page="tableData.currentPage" @current-change="currentChange">
+          <el-pagination background layout="total, prev, pager, next" :total="tableData.total" :page-size="10" :current-page.sync="tableData.currentPage" @current-change="currentChange">
           </el-pagination>
         </div>
       </div>
